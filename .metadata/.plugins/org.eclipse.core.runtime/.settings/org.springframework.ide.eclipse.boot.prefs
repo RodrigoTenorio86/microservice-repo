@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-config-client=1
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-eureka=1
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-eureka-server=1
 org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=eureka-server

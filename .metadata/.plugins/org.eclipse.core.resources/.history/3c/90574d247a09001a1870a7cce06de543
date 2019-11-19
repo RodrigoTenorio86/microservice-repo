@@ -1,5 +1,0 @@
-package br.com.fiap.endpoint.repository;
-
-public interface CourseRepository {
-
-}

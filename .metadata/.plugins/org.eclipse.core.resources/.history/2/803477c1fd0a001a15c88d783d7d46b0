@@ -1,7 +1,12 @@
 server:
   port: 8081
   
-
+spring:
+  application:
+    name: 'fornecedor'
+  profiles:
+    active: default
+  
       
 eureka:
   client:

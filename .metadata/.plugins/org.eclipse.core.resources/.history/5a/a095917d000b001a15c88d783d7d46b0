@@ -12,7 +12,6 @@ spring:
 #          - /home/rtenorio/Documents/microservice-repo
         git:
           uri: https://github.com/RodrigoTenorio86/microservice-repo
-          search-paths: fornecedor
             
         
           
