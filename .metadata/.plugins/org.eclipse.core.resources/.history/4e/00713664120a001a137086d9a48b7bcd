@@ -1,0 +1,5 @@
+package br.com.fiap.loja.controller.dto;
+
+public class CompraDTO {
+private List<ItemDaCompra> itens;
+}

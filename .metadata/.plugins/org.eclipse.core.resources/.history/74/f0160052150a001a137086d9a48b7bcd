@@ -1,0 +1,6 @@
+package br.com.fiap.loja.controller.dto;
+
+public class InfoFornecedorDTO {
+  private String endereco;
+  
+}

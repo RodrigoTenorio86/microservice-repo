@@ -1,0 +1,9 @@
+package br.com.fiap.loja.controller.dto;
+
+public class ItemDaCompraDTO {
+private long id;
+private int quantidade;
+
+
+
+}

@@ -1,0 +1,10 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: course
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  
