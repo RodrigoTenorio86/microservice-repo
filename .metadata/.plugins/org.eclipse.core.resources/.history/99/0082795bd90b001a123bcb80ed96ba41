@@ -1,0 +1,12 @@
+package br.com.fiap.loja.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import br.com.fiap.fornecedor.model.InfoFornecedor;
+
+@FeignClient("fornecedor")
+public interface FornecedorClient {
+
+	public InfoFornecedorDTO getInfoPorEstado(@PathVariable String estado) 
+}

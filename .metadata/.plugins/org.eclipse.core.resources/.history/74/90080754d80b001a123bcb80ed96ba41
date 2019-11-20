@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  db_maria:
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: r123
+    volumes:
+      - microservices_fornecedor:/var/lib/maria
+      
+
+volumes:
+  microservices_fornecedor:
+  

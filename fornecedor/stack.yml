@@ -3,7 +3,7 @@ version: '3.1'
 services:
   db_maria:
     image: mariadb
-    restart: always
+ #   restart: always
     ports:
       - 3306:3306
     environment:

@@ -1,0 +1,8 @@
+package br.com.fiap.loja.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient("fornecedor")
+public interface FornecedorClient {
+
+}
