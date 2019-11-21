@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.loja.controller.dto.CompraDTO;
+import br.com.fiap.loja.model.Compra;
 import br.com.fiap.loja.service.CompraService;
 
 @RequestMapping("/compra")
@@ -17,7 +18,7 @@ public class CompraController {
 	private CompraService compraService;
 
 	@PostMapping
-	public void realizaCompra(@RequestBody CompraDTO compra) {
-		compraService.realizaCompra(compra);  
+	public Compra realizaCompra(@RequestBody CompraDTO compra) {
+		return  compraService.realizaCompra(compra);  
 	}
 }
