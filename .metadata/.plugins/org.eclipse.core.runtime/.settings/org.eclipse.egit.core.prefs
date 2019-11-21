@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=/home/rtenorio/Documents/workspace-spring-tool-suite-4-4.4.1.RELEASE/course/.git\:
-GitRepositoriesView.GitDirectories.relative=course/.git\:
+GitRepositoriesView.GitDirectories=/home/rtenorio/Documents/workspace-spring-tool-suite-4-4.4.1.RELEASE/.git\:/home/rtenorio/Documents/workspace-spring-tool-suite-4-4.4.1.RELEASE/course/.git\:
+GitRepositoriesView.GitDirectories.relative=.git\:course/.git\:
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

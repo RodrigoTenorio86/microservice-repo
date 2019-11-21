@@ -10,13 +10,13 @@ import org.springframework.web.client.RestTemplate;
 import br.com.fiap.loja.client.FornecedorClient;
 import br.com.fiap.loja.controller.dto.CompraDTO;
 import br.com.fiap.loja.controller.dto.InfoFornecedorDTO;
+import br.com.fiap.loja.controller.dto.InfoPedidoDTO;
 
 @Service
 public class CompraService {
 	
 //	@Autowired
-//	private RestTemplate client;
-	
+//	private RestTemplate client;	
 //	@Autowired
 //	private DiscoveryClient eurekaCliente;
 	
@@ -25,6 +25,9 @@ public class CompraService {
 
 	public void realizaCompra(CompraDTO compra) {
 		InfoFornecedorDTO info= fornecedorClient.getInfoPorEstado(compra.getEndereco().getEstado());
+		
+//	   InfoPedidoDTO pedido=	fornecedorClient.realizaPedido(compra.getItens());
+		
 		System.out.println(info.getEndereco());
 		
 		//RestTemplate client = new RestTemplate();

@@ -1,7 +1,0 @@
-package br.com.fiap.fornecedor.repository;
-
-import org.springframework.data.repository.CrudRepository;
-
-public interface InfoRepository extends CrudRepository<InfoFornecedor, Long>{
-
-}

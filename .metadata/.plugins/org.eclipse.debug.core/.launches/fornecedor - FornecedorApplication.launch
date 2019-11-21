@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.springframework.ide.eclipse.boot.launch">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/fornecedor/src/main/java/br/com/fiap/fornecedor/FornecedorApplication.java"/>
+<listEntry value="/fornecedor/src/main/java/br/com/alura/microservice/fornecedor/FornecedorApplication.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.springframework.ide.eclipse.boot.launch.BootMavenClassPathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="br.com.fiap.fornecedor.FornecedorApplication"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="br.com.alura.microservice.fornecedor.FornecedorApplication"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="fornecedor"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.springframework.ide.eclipse.boot.launch.BootMavenSourcePathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.security.egd=file:/dev/./urandom "/>
