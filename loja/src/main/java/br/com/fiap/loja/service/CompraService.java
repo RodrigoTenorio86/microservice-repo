@@ -46,7 +46,7 @@ public class CompraService {
 		compra2.setEnderecoDestino(compra.getEndereco().toString());
 		
 
-		System.out.println(info.getEndereco());
+		//System.out.println(info.getEndereco());
 		
 		return compra2;
 		
