@@ -4,5 +4,7 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/fornecedor
   jpa:
+    show-sql: true
+    database: MYSQL
     hibernate:
       ddl-auto: update
