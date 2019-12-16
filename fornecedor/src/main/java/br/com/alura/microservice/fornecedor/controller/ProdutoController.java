@@ -11,7 +11,7 @@ import br.com.alura.microservice.fornecedor.model.Produto;
 import br.com.alura.microservice.fornecedor.service.ProdutoService;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/v1/produto")
 public class ProdutoController {
 
 	@Autowired

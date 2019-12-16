@@ -15,9 +15,9 @@ import br.com.fiap.loja.controller.dto.ItemDaCompraDTO;
 @FeignClient("fornecedor")
 public interface FornecedorClient {
 
-	@RequestMapping("/info/{estado}")
+	@RequestMapping("/v1/info/{estado}")
 	public InfoFornecedorDTO getInfoPorEstado(@PathVariable String estado) ;
 
-	@PostMapping("/pedido")
+	@PostMapping("/v1/pedido")
 	public InfoPedidoDTO realizaPedido(List<ItemDaCompraDTO> itens);
 }

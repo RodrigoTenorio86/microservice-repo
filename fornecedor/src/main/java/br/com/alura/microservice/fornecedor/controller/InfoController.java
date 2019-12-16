@@ -11,7 +11,7 @@ import br.com.alura.microservice.fornecedor.model.InfoFornecedor;
 import br.com.alura.microservice.fornecedor.service.InfoService;
 
 @RestController
-@RequestMapping("/info")
+@RequestMapping("/v1/info")
 public class InfoController {
 	private static final Logger LOG = LoggerFactory.getLogger(InfoController.class);
 	@Autowired

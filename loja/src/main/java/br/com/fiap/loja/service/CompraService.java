@@ -29,10 +29,10 @@ public class CompraService {
 
 	@Autowired
 	private FornecedorClient fornecedorClient;
-
+	@Autowired
 	private CompraRepository comprarepository;
 
-	@HystrixCommand(fallbackMethod = "realizaCompraFallback")
+//	@HystrixCommand(fallbackMethod = "realizaCompraFallback")
 	public Compra realizaCompra(CompraDTO compra) {
 
 		final String estado = compra.getEndereco().getEstado();
@@ -63,7 +63,14 @@ public class CompraService {
 
 	public Compra realizaCompraFallback(CompraDTO compra) {
 		Compra compra2 = new Compra();
+		compra2.setEnderecoDestino(compra.getEndereco().toString());
 		return compra2;
+	}
+
+	@HystrixCommand
+	public Compra getById(Long id) {
+
+		return comprarepository.findById(id).orElse(new Compra());
 	}
 
 }

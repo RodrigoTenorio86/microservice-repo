@@ -2,7 +2,7 @@ package br.com.fiap.loja.controller.dto;
 
 public class EnderecoDTO {
 	private String rua;
-	private int numero;
+	private String numero;
 	private String estado;
 	public String getRua() {
 		return rua;
@@ -10,10 +10,10 @@ public class EnderecoDTO {
 	public void setRua(String rua) {
 		this.rua = rua;
 	}
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public String getEstado() {
