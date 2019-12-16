@@ -16,6 +16,7 @@ import br.com.fiap.loja.controller.dto.CompraDTO;
 import br.com.fiap.loja.controller.dto.InfoFornecedorDTO;
 import br.com.fiap.loja.controller.dto.InfoPedidoDTO;
 import br.com.fiap.loja.model.Compra;
+import br.com.fiap.loja.repository.CompraRepository;
 
 @Service
 public class CompraService {
@@ -28,6 +29,8 @@ public class CompraService {
 
 	@Autowired
 	private FornecedorClient fornecedorClient;
+
+	private CompraRepository comprarepository;
 
 	@HystrixCommand(fallbackMethod = "realizaCompraFallback")
 	public Compra realizaCompra(CompraDTO compra) {
@@ -45,6 +48,7 @@ public class CompraService {
 		compra2.setEnderecoDestino(compra.getEndereco().toString());
 
 		// System.out.println(info.getEndereco());
+		comprarepository.save(compra2);
 
 		return compra2;
 
@@ -56,11 +60,9 @@ public class CompraService {
 //		eurekaCliente.getInstances("fornecedor").stream().forEach(fornecedor-> System.out.println("localhost: "+fornecedor.getPort()));
 
 	}
-	
-	
+
 	public Compra realizaCompraFallback(CompraDTO compra) {
 		Compra compra2 = new Compra();
-		
 		return compra2;
 	}
 

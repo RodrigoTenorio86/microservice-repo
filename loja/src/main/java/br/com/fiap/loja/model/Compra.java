@@ -1,6 +1,11 @@
 package br.com.fiap.loja.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Compra {
+	@Id
 	private Long pedidoId;
 	private Integer tempoDePreparo;
 	
