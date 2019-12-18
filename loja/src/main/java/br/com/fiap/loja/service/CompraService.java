@@ -32,7 +32,7 @@ public class CompraService {
 	@Autowired
 	private CompraRepository comprarepository;
 
-//	@HystrixCommand(fallbackMethod = "realizaCompraFallback")
+	@HystrixCommand(fallbackMethod = "realizaCompraFallback", threadPoolKey = "realizarCompraThreadPool")
 	public Compra realizaCompra(CompraDTO compra) {
 
 		final String estado = compra.getEndereco().getEstado();
@@ -48,6 +48,18 @@ public class CompraService {
 		compra2.setEnderecoDestino(compra.getEndereco().toString());
 
 		// System.out.println(info.getEndereco());
+		
+		/**
+		 * Teste para HystrixCommand
+		
+		try {
+			Thread.sleep(2000);
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		 */
+		
+		
 		comprarepository.save(compra2);
 
 		return compra2;
@@ -67,7 +79,7 @@ public class CompraService {
 		return compra2;
 	}
 
-	@HystrixCommand
+	@HystrixCommand(threadPoolKey = "getByThreadPool")
 	public Compra getById(Long id) {
 
 		return comprarepository.findById(id).orElse(new Compra());
