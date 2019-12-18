@@ -1,1 +1,11 @@
 
+spring:
+  datasource: 
+    password: Rr123
+    username: root
+    url: jdbc:mysql://localhost:3306/transportador
+  jpa:
+    show-sql: true
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
