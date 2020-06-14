@@ -38,29 +38,27 @@ public class CompraService {
 
 	@HystrixCommand(fallbackMethod = "realizaCompraFallback", threadPoolKey = "realizarCompraThreadPool")
 	public Compra realizaCompra(CompraDTO compra) {
+		
 		Compra compraSalva = new Compra();
 		compraSalva.setState(CompraState.RECEBIDO);
+		compraSalva.setEnderecoDestino(compra.getEndereco().toString());
 		comprarepository.save(compraSalva);
-
-		final String estado = compra.getEndereco().getEstado();
-		LOG.info("Buscando informa;oes do Fornecedor de {} ", estado);
-		InfoFornecedorDTO info = fornecedorClient.getInfoPorEstado(compra.getEndereco().getEstado());
-
-		LOG.info("realizando um Pedido");
-		InfoPedidoDTO pedido = fornecedorClient.realizaPedido(compra.getItens());
+		compra.setCompraId(compraSalva.getId());
 		
+		InfoFornecedorDTO info = fornecedorClient.getInfoPorEstado(compra.getEndereco().getEstado());
+		InfoPedidoDTO pedido = fornecedorClient.realizaPedido(compra.getItens());
+		compraSalva.setState(CompraState.PEDIDO_REALIZADO);
+		compraSalva.setPedidoId(pedido.getId());
+		compraSalva.setTempoDePreparo(pedido.getTempoDePreparo());
+		comprarepository.save(compraSalva);
+		
+		//Integracao Transporte
 		InfoEntregaDTO entregaDto = new InfoEntregaDTO();
 		entregaDto.setPedidoId(pedido.getId());
 		entregaDto.setDataParaEntrega(LocalDate.now().plusDays(pedido.getTempoDePreparo()));
 		entregaDto.setEnderecoOrigem(info.getEndereco());
-		entregaDto.setEnderecoDestino(compra.getEndereco().toString());
 		VoucherDTO voucher = transportadorClient.reservaEntrega(entregaDto);
-
-		//Integracao com servico TRansporte...
-
-		compraSalva.setPedidoId(pedido.getId());
-		compraSalva.setTempoDePreparo(pedido.getTempoDePreparo());
-		compraSalva.setEnderecoDestino(compra.getEndereco().toString());
+		compraSalva.setState(CompraState.RESERVA_ENTREGA_REALIZADA);
 		compraSalva.setDataParaEntrega(voucher.getPrevisaoParaEntrega());
 		compraSalva.setVoucher(voucher.getNumero());
 		comprarepository.save(compraSalva);
@@ -91,9 +89,13 @@ public class CompraService {
 	}
 
 	public Compra realizaCompraFallback(CompraDTO compra) {
-		Compra compra2 = new Compra();
-		compra2.setEnderecoDestino(compra.getEndereco().toString());
-		return compra2;
+		if(compra.getCompraId() != null) {
+			return comprarepository.findById(compra.getCompraId()).get();
+		}
+		
+		Compra compraFallback = new Compra();
+		compraFallback.setEnderecoDestino(compra.getEndereco().toString());
+		return compraFallback;
 	}
 
 	@HystrixCommand(threadPoolKey = "getByThreadPool")

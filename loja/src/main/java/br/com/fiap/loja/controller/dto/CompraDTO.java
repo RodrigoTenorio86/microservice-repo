@@ -2,9 +2,23 @@ package br.com.fiap.loja.controller.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CompraDTO {
+	@JsonIgnore
+	private Long compraId;
+	
 	private List<ItemDaCompraDTO> itens;
+	
 	private EnderecoDTO endereco;
+
+	public Long getCompraId() {
+		return compraId;
+	}
+
+	public void setCompraId(Long compraId) {
+		this.compraId = compraId;
+	}
 
 	public List<ItemDaCompraDTO> getItens() {
 		return itens;
@@ -21,5 +35,7 @@ public class CompraDTO {
 	public void setEndereco(EnderecoDTO endereco) {
 		this.endereco = endereco;
 	}
+	
+	
 
 }
