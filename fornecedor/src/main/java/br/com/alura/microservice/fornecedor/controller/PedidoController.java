@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.alura.microservice.fornecedor.dto.ItemDoPedidoDTO;
 import br.com.alura.microservice.fornecedor.model.Pedido;
 import br.com.alura.microservice.fornecedor.service.PedidoService;
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/v1/pedido")
+@Api(value = "Endpoints to manage Pedido")
 public class PedidoController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(PedidoController.class);

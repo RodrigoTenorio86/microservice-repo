@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.loja.controller.dto.CompraDTO;
 import br.com.fiap.loja.model.Compra;
 import br.com.fiap.loja.service.CompraService;
+import io.swagger.annotations.Api;
 
 @RequestMapping("/v1/compra")
 @RestController
+@Api(value = "Endpoints to manage Compra.")
 public class CompraController {
 	
 	private final static Logger LOG = LoggerFactory.getLogger(CompraController.class);

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.microservice.fornecedor.model.Produto;
 import br.com.alura.microservice.fornecedor.service.ProdutoService;
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/v1/produto")
+@Api(value = "Endpoints to manage Produto...")
 public class ProdutoController {
 
 	@Autowired
