@@ -1,18 +1,18 @@
 version: '3.1'
 
 services:
-  db_maria:
-    image: mariadb
- #   restart: always
+  db:
+    image: mysql
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: r123
-    volumes:
-      - microservices_fornecedor:/var/lib/maria
-      
+       MYSQL_ROOT_PASSWORD: Rr123
+       MYSQL_USER: root
+       MYSQL_DATABASE: fornecedor
+       MYSQL_PASSWORD: Rr123
 
-volumes:
-  microservices_fornecedor:
-  
+    healthcheck:
+      test: ["CMD-SHELL", 'mysqladmin ping']
+      interval: 10s
+      timeout: 2s
+      retries: 10      
