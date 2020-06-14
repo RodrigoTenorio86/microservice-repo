@@ -1,21 +1,23 @@
 package br.com.fiap.loja.service;
 
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import br.com.fiap.loja.client.FornecedorClient;
+import br.com.fiap.loja.client.TransportadorClient;
 import br.com.fiap.loja.controller.dto.CompraDTO;
+import br.com.fiap.loja.controller.dto.InfoEntregaDTO;
 import br.com.fiap.loja.controller.dto.InfoFornecedorDTO;
 import br.com.fiap.loja.controller.dto.InfoPedidoDTO;
+import br.com.fiap.loja.controller.dto.VoucherDTO;
 import br.com.fiap.loja.model.Compra;
+import br.com.fiap.loja.model.CompraState;
 import br.com.fiap.loja.repository.CompraRepository;
 
 @Service
@@ -31,9 +33,14 @@ public class CompraService {
 	private FornecedorClient fornecedorClient;
 	@Autowired
 	private CompraRepository comprarepository;
+	@Autowired
+	private TransportadorClient transportadorClient;
 
 	@HystrixCommand(fallbackMethod = "realizaCompraFallback", threadPoolKey = "realizarCompraThreadPool")
 	public Compra realizaCompra(CompraDTO compra) {
+		Compra compraSalva = new Compra();
+		compraSalva.setState(CompraState.RECEBIDO);
+		comprarepository.save(compraSalva);
 
 		final String estado = compra.getEndereco().getEstado();
 		LOG.info("Buscando informa;oes do Fornecedor de {} ", estado);
@@ -41,12 +48,22 @@ public class CompraService {
 
 		LOG.info("realizando um Pedido");
 		InfoPedidoDTO pedido = fornecedorClient.realizaPedido(compra.getItens());
+		
+		InfoEntregaDTO entregaDto = new InfoEntregaDTO();
+		entregaDto.setPedidoId(pedido.getId());
+		entregaDto.setDataParaEntrega(LocalDate.now().plusDays(pedido.getTempoDePreparo()));
+		entregaDto.setEnderecoOrigem(info.getEndereco());
+		entregaDto.setEnderecoDestino(compra.getEndereco().toString());
+		VoucherDTO voucher = transportadorClient.reservaEntrega(entregaDto);
 
-		Compra compra2 = new Compra();
-		compra2.setPedidoId(pedido.getId());
-		compra2.setTempoDePreparo(pedido.getTempoDePreparo());
-		compra2.setEnderecoDestino(compra.getEndereco().toString());
+		//Integracao com servico TRansporte...
 
+		compraSalva.setPedidoId(pedido.getId());
+		compraSalva.setTempoDePreparo(pedido.getTempoDePreparo());
+		compraSalva.setEnderecoDestino(compra.getEndereco().toString());
+		compraSalva.setDataParaEntrega(voucher.getPrevisaoParaEntrega());
+		compraSalva.setVoucher(voucher.getNumero());
+		comprarepository.save(compraSalva);
 		// System.out.println(info.getEndereco());
 		
 		/**
@@ -60,9 +77,9 @@ public class CompraService {
 		 */
 		
 		
-		comprarepository.save(compra2);
+		
 
-		return compra2;
+		return compraSalva;
 
 		// RestTemplate client = new RestTemplate();
 //		ResponseEntity<InfoFornecedorDTO> exchange =
