@@ -46,10 +46,12 @@ public class CompraService {
 		compra.setCompraId(compraSalva.getId());
 		
 		InfoFornecedorDTO info = fornecedorClient.getInfoPorEstado(compra.getEndereco().getEstado());
+		LOG.info("Buscando informa;oes do Fornecedor de {}", compra.getEndereco().getEstado());
 		InfoPedidoDTO pedido = fornecedorClient.realizaPedido(compra.getItens());
 		compraSalva.setState(CompraState.PEDIDO_REALIZADO);
 		compraSalva.setPedidoId(pedido.getId());
 		compraSalva.setTempoDePreparo(pedido.getTempoDePreparo());
+		LOG.info("realizando um Pedido...");
 		comprarepository.save(compraSalva);
 		
 		//Integracao Transporte
